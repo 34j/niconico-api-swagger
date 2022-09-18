@@ -5,7 +5,7 @@ info:
   description: ''
 
 servers:
-  - url: http://www.nicovideo.jp
+  - url: https://www.nicovideo.jp
 
 paths:
   /api/watch/v3_guest/{id}:

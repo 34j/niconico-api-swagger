@@ -6,7 +6,7 @@ info:
     ニコニコ動画のコメントAPIをまとめました。
 
 servers:
-  - url: nvcomment.nicovideo.jp
+  - url: https://nvcomment.nicovideo.jp
 
 paths:
   /api/getthreadkey:

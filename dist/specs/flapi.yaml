@@ -5,7 +5,7 @@ info:
   description: 
 
 servers:
-  - url: http://flapi.nicovideo.jp
+  - url: https://flapi.nicovideo.jp
 
 paths:
   /api/getthreadkey:
