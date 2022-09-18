@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: Niconico flapi
+  version: '2022.09.18'
+  description: 
+
+servers:
+  - url: http://flapi.nicovideo.jp
+
+paths:
+  /api/getthreadkey:
+    get:
+      parameters:
+        - name: thread
+          in: query
+          schema:
+            type: integer
+            example: 1662701405
+      responses:
+        200:
+          description: OK
+          content:
+            "text/html":
+              schema:
+                type: string
+                example: "threadkey=1663514393.smet2ke_FfACiwrED6aQC8iwpOk&force_184=1"

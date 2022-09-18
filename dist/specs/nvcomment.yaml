@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Niconico nvcomment API
+  version: '2022.09.18'
+  description: |
+    ニコニコ動画のコメントAPIをまとめました。
+
+servers:
+  - url: nvcomment.nicovideo.jp
+
+paths:
+  /api/getthreadkey:
+    get:
+      parameters:
+        - name: thread
+          in: query
+          schema:
+            type: integer
+            example: 1662701405
+      responses:
+        200:
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+                example: "a"
+
+  /legacy/api.json/thread:
+    get:
+      parameters:
+        - name: thread
+          in: query
+          schema:
+            type: integer
+            example: 3
+        - name: version
+          in: query
+          schema:
+            type: string
+            example: 20090904
+        - name: scores
+          in: query
+          schema:
+            type: integer
+            example: 1        
+        - name: fork
+          in: query
+          schema:
+            type: integer
+            example: 0        
+        - name: language
+          in: query
+          schema:
+            type: integer
+            example: 0
+        - name: res_from
+          in: query
+          schema:
+            type: integer
+            example: -1000
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  hello:
+                    type: string
+
+  /v1/threads:
+    post:
+      description: "Get all threads."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              
+      responses:
+        200:
+          description: OK
+          content:
+            applicaiton/json:
+              schema:
+                properties:
+                  meta:
+                    type: string
+                    example: 200
+                  data:
+                    properties:
+                      globalComments:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: string
+                              example: "1662701404"
+                            count:
+                              type: integer
+                      threads:
+                        type: array
+                        items:
+                          properties:
+                            id: 
+                              type: string
+                            fork: 
+                              $ref: '#/components/schemas/Fork'
+                            commentCount:
+                              type: integer
+                            comments:
+                              type: array
+                              items:
+                                $ref: '#/components/schemas/Comment'
+
+components:
+  schemas:
+    Fork:
+      type: string
+      enum: 
+        - owner
+        - main
+        - easy
+      example:
+        main
+    Comment:
+      properties:
+        id:
+          type: string
+        no:
+          type: integer
+        vposMs:
+          type: integer
+        body:
+          type: string
+        commands:
+          type: array
+          items:
+            type: string
+            example: "184"
+        userId:
+          type: string
+        isPremium:
+          type: boolean
+        score:
+          type: integer
+        postedAt:
+          type: string
+        nicoruCount:
+          type: integer
+        nicoruId:
+          type: string
+        source:
+          type: string
+          example: "leaf"
+        isMyPost:
+          type: boolean
+          example: false
