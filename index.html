@@ -3,15 +3,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Niconico api</title>
-    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>Niconico API</title>
     <link rel="stylesheet" type="text/css" href="dist/swagger-ui.css" />
-    <link rel="stylesheet" type="text/css" href="spec/index.css" />
+    <link rel="stylesheet" type="text/css" href="dist/index.css" />
+    <link rel="stylesheet" type="text/css" href="dist/swagger-dark.css" />
     <link rel="icon" type="image/png" href="dist/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="dist/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="dist/favicon-16x16.png" sizes="16x16" />   
   </head>
 
   <body>
-    <iframe src="dist/flapi.html" width="100%" height="100%">
+    <div id="swagger-ui"></div>
+    <script src="dist/swagger-ui-bundle.js" charset="UTF-8"> </script>
+    <script src="dist/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+    <script src="dist/swagger-initializer.js" charset="UTF-8"> </script>
   </body>
 </html>
