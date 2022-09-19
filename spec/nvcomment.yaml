@@ -3,59 +3,48 @@ info:
   title: Niconico nvcomment API
   version: '2022.09.18'
   description: |
-    ニコニコ動画のコメントAPIをまとめました。
+    Comment APIs.
 
 servers:
   - url: https://nvcomment.nicovideo.jp
 
 paths:
-  /api/getthreadkey:
-    get:
-      parameters:
-        - name: thread
-          in: query
-          schema:
-            type: integer
-            example: 1662701405
-      responses:
-        200:
-          description: OK
-          content:
-            text/html:
-              schema:
-                type: string
-                example: "a"
-
   /legacy/api.json/thread:
     get:
       parameters:
         - name: thread
           in: query
+          description: Comment thread ID.
           schema:
             type: integer
-            example: 3
+            example: 1173108780
         - name: version
           in: query
+          description: Date of the api release?
           schema:
             type: string
             example: 20090904
         - name: scores
           in: query
+          description: NG Score.
           schema:
             type: integer
             example: 1        
         - name: fork
           in: query
+          description: Thread fork.
           schema:
             type: integer
             example: 0        
         - name: language
           in: query
+          description: Language.
           schema:
             type: integer
             example: 0
         - name: res_from
           in: query
+          description: Get last -X comments.
           schema:
             type: integer
             example: -1000
@@ -73,11 +62,34 @@ paths:
   /v1/threads:
     post:
       description: "Get all threads."
+      parameters:
+        - name: X-Frontend-Id
+          in: header
+          schema:
+            type: integer
+            example: 6
+        - name: X-Frontend-Version
+          in: header
+          schema:
+            type: integer
+            example: 0
       requestBody:
         content:
           application/json:
             schema:
-              type: string
+              properties:
+                params:
+                  $ref: '#/components/schemas/NvCommentParams'
+                additionals:
+                  properties:
+                    when:
+                      type: integer
+                      example: 1655558820
+                threadKey:
+                  $ref: '#/components/schemas/LongThreadKey'
+
+
+                  
               
       responses:
         200:
@@ -97,7 +109,7 @@ paths:
                           properties:
                             id:
                               type: string
-                              example: "1662701404"
+                              example: "1173108780"
                             count:
                               type: integer
                       threads:
@@ -117,6 +129,40 @@ paths:
 
 components:
   schemas:
+    NvCommentParams:
+      properties:
+        targets:
+          type: array
+          example: 
+            - {id: "1173108780", fork: "owner"}
+            - {id: "1173108780", fork: "main"}
+            - {id: "1173108780", fork: "easy"}
+          items:
+            properties:
+              id:
+                type: string
+                example: 1173108780
+              fork:
+                type: string
+                example: "main"
+        language:
+          type: string
+          example: "ja-jp"
+    
+    LongThreadKey:
+      type: string
+      example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI2MzI4MmZmZDM0MDNjIiwiZXhwIjoxNjYzNTc4NTg5LCJ0eXAiOiJUaHJlYWQtS2V5IiwidGlkcyI6WyIxMTczMTA4NzgwIl0sImYxODRzIjpbXX0.DCNnKd4h2tItktKVqqEyPn5gydvbJtpwpx3A8mcoz51XkNk3ZSP5aLMExbHnVyktaZ4gJZpW83z5sS0_vHGy2Q
+
+    NvComment:
+      properties:
+        threadKey:
+          $ref: '#/components/schemas/LongThreadKey'
+        server:
+          type: string
+          example: https://nvcomment.nicovideo.jp
+        params:
+          $ref: '#/components/schemas/NvCommentParams'
+    
     Fork:
       type: string
       enum: 

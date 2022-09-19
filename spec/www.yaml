@@ -24,11 +24,6 @@ paths:
           schema:
             type: integer
             example: 0
-        - name: Access-Control-Allow-Origin
-          in: header
-          schema:
-            type: string
-            example: "*"
         - name: id
           required: true
           in: path  
@@ -38,6 +33,7 @@ paths:
             example: sm9
         - name: actionTrackId
           in: query
+          required: true
           description: "[a-z0-9]{10}_[0-9]{12}"
           schema:
             type: string
@@ -46,7 +42,7 @@ paths:
         200:
           description: OK
           content:
-            "text/html":
+            "application/json":
               schema:
                 properties:
                   meta:
@@ -60,3 +56,10 @@ paths:
                         type: string
                       category:
                         type: string
+                      channel:
+                        type: string
+                      client:
+                        properties:
+                          nicosid:
+                            type: string
+                            example: 1660405081.2054386943
